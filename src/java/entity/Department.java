@@ -18,19 +18,19 @@ public class Department {
     public Department() {
     }
 
-    public Department(String id, String name) {
+    public Department(int id, String name) {
         this.id = id;
         this.name = name;
     }
-    
-    private String id;
+
+    private int id;
     private String name;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,6 +40,11 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" + "id=" + id + ", name=" + name + '}';
     }
 
 }

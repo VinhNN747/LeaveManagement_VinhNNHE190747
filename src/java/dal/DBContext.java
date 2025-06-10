@@ -4,26 +4,41 @@
  */
 package dal;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author vinhnnpc
  */
-public class DBContext {
+public abstract class DBContext<T> {
+
+    protected Connection connection;
 
     public DBContext() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("MyPersistenceUnit");
-        EntityManager em = emf.createEntityManager();
-
         try {
-            System.out.println("EntityManager created successfully!");
-        } finally {
-            em.close();
-            emf.close();
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=LeaveManagementAssignment;encrypt=true;trustServerCertificate=true;";
+            String user = "sa";
+            String pass = "sa";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            connection = DriverManager.getConnection(url, user, pass);
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace(); // <<< ADD THIS LINE FOR DEBUGGING
         }
     }
+
+    public abstract ArrayList<T> list();
+
+    public abstract T get(int id);
+
+    public abstract void insert(T model);
+
+    public abstract void update(T model);
+
+    public abstract void delete(int id);
 
 }

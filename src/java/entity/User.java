@@ -4,7 +4,6 @@
  */
 package entity;
 
-import org.hibernate.*;
 import jakarta.persistence.*;
 
 /**
@@ -12,31 +11,33 @@ import jakarta.persistence.*;
  * @author vinhnnpc
  */
 @Entity
-@Table(name = "Department")
+@Table(name = "User")
 public class User {
 
     public User() {
     }
 
-    public User(String id, String email, String name, String password, String role) {
+    public User(int id, String email, String name, String password, String role, Department department) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.role = role;
+        this.department = department;
     }
 
-    private String id;
+    private int id;
     private String email;
     private String name;
     private String password;
     private String role;
+    private Department department;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -70,6 +71,19 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + ", role=" + role + ", department=" + department + '}';
     }
 
 }
